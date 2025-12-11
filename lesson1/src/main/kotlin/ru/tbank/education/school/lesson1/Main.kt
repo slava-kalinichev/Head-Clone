@@ -17,5 +17,6 @@ fun main() {
     for (i in 1..3 step 2) {
         println(i)
     }
+    println(5/3)
     exitProcess(0)
 }
