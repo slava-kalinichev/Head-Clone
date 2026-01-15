@@ -8,7 +8,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.assertThrows
 
-@Disabled
+// @Disabled
 class UserServiceTest {
     
     private lateinit var userService: UserService
@@ -22,7 +22,6 @@ class UserServiceTest {
     @DisplayName("Успешная регистрация пользователя")
     fun `successful user registration`() {
         val user = userService.registerUser("john_doe", "john@example.com")
-        
         assertEquals(1, user.id)
         assertEquals("john_doe", user.username)
         assertEquals("john@example.com", user.email)
