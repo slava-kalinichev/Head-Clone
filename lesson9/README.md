@@ -2,68 +2,61 @@
 
 ## Задание 1. Поиск ошибок в логах
 Найти все строки со словом ERROR во всех логах в каталоге logs (включая logs/old) и сохранить их в файл errors.txt в корне проекта.
-
 ```bash
-TODO()
+grep -r "ERROR" logs/ > errors.txt
 ```
-
+    
 ## Задание 2. Архивация старых логов
 Создать каталог archived/ в корне проекта и переместить туда все файлы из logs/old.
-
 ```bash
-TODO()
+mkdir -p archived
+mv logs/old/* archived/
 ```
 
 ## Задание 3. Подсчёт размера логов
 Посчитать общий размер каталога logs и записать результат в logs_size.txt.
-
 ```bash
-TODO()
+du -sb logs/ > logs_size.txt
 ```
 
 ## Задание 4. Нахождение самого большого лог-файла
 Найти самый большой файл в каталоге logs (без учёта подкаталогов) и записать его имя в файл biglog.txt.
-
 ```bash
-TODO()
+ls -S logs/ | head -n1 > biglog.txt
 ```
 
 ## Задание 5. Подсчёт количества логов
-Подсчитать количество файлов с расширением .log во всём каталоге logs и сохранить результат в log_count.txt.
-
+Подсчитать количество файлов с расширением .logs во всём каталоге logs и сохранить результат в log_count.txt.
 ```bash
-TODO()
+find logs/ -name "*.log*" -type f | wc -l > log_count.txt
 ```
 
 ## Задание 6. Поиск конфигурационных параметров
 Найти во всех config/*.conf строки, содержащие слово "host", и записать в host_params.txt.
-
 ```bash
-TODO()
+grep -h "host" logs/config/*.conf > host_params.txt
 ```
 
 ## Задание 7. Создание резервного архива конфигов
 Создать zip-архив config_backup.zip, содержащий все файлы из config/.
-
 ```bash
-TODO()
+zip -r config_backup.zip logs/config/ > config_backup.zip    # У меня не работает (Windows)
+powershell "Compress-Archive -Path 'logs/config/*' -DestinationPath 'config_backup.zip'"
 ```
 
 ## Задание 8. Создание общего резервного архива
 Создать zip-архив project_backup.zip, куда включить:
 - все *.conf из config/
-- все *.log из logs (включая old/)
+- все *.logs из logs (включая old/)
 - файл errors.txt (если он есть)
-
 ```bash
-TODO()
+powershell "Compress-Archive -Path 'logs/config/*.conf', 'logs/*.logs', 'logs/old/*.logs', 'errors.txt' -DestinationPath 'project_backup.zip'"
 ```
 
 ## Задание 9. Очистка пустых строк в логах
-Создать файл cleaned_app.log, содержащий содержимое app.log без пустых строк.
-
+Создать файл cleaned_app.logs, содержащий содержимое app.logs без пустых строк.
 ```bash
-TODO()
+grep -v '^$' logs/app.logs > cleaned_app.logs
 ```
 
 ## Задание 10. Подсчёт количества строк в каждом конфиге
@@ -71,9 +64,8 @@ TODO()
 app.conf 12  
 db.conf 8  
 (где число — количество строк в файле)
-
 ```bash
-TODO()
+for i in logs/config/*.conf; do lines=$(grep -c '.' "$i"); echo "$(basename "$i") $lines"; done > conf_stats.txt
 ```
 
 
@@ -89,3 +81,5 @@ TODO()
 ### Требования:
 - Не использовать сторонние библиотеки для архивирования (только стандартный API).
 - Программа должна выводить в консоль список добавляемых файлов и их размер.
+
+Решение: Archiver.kt
