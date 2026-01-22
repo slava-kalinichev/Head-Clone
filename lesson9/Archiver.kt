@@ -139,22 +139,8 @@ fun main() {
             "all"
         }
     }
-
-    fun countAllFiles(dir: File): Int {
-        var count = 0
-        dir.listFiles()?.forEach { file ->
-            if (file.isDirectory) {
-                count += countAllFiles(file)
-            }
-            else {
-                count++
-            }
-        }
-        return count
-    }
-
-    val allFiles = countAllFiles(file)
-    println("\nFiles in directory: $allFiles")
+    val allFiles = ar.filesP(file, null)
+    println("\nFiles in directory: ${allFiles.size}")
     val exts = when (filterType.lowercase()) {
         "txt" -> setOf("txt")
         "log" -> setOf("log")
