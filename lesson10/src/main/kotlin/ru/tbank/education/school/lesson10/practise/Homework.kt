@@ -9,7 +9,7 @@ data class Log(val dt: String, val id: Int, val state: String) {
 class Parser {
     private val fa = """(\d{4}-\d{2}-\d{2} \d{2}:\d{2})\s*\|\s*id:\s*(\d+)\s*\|\s*STATUS:\s*(\w+)""".toRegex(RegexOption.IGNORE_CASE)
     private val fb = """TS\s*=\s*(\d{2}/\d{2}/\d{4})-(\d{2}:\d{2})\s*;\s*status\s*=\s*(\w+)\s*;\s*#(\d+)""".toRegex(RegexOption.IGNORE_CASE)
-    private val fc = """\[(\d{2}\.\d{2}\.\d{4})\s+(\d{2}:\d{2})\]\s+(\w+)\s*\(id\s*:\s*(\d+)\)""".toRegex(RegexOption.IGNORE_CASE)
+    private val fc = """\[(\d{2}\.\d{2}\.\d{4})\s+(\d{2}:\d{2})]\s+(\w+)\s*\(id\s*:\s*(\d+)\)""".toRegex(RegexOption.IGNORE_CASE)
 
     fun normalize(line: String): Log? {
         val lined = line.trim()
